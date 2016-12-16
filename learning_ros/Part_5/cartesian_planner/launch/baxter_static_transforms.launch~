@@ -1,0 +1,4 @@
+<launch>
+<node pkg="tf" type="static_transform_publisher" name="system_ref_frame" args="0 0 0 0 0 0 1 torso system_ref_frame 100" />
+<node pkg="tf" type="static_transform_publisher" name="generic_gripper_frame" args="-0.01 -0.01 0.22 1.3 0 0  right_hand generic_gripper_frame 100" />
+</launch>
