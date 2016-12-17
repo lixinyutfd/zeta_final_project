@@ -31,8 +31,6 @@ catkin_simple()
 
 # Executables: uncomment the following and edit arguments to compile new nodes
 # may add more of these lines for more nodes from the same package
-cs_add_executable(zeta_object_finder_as src/zeta_object_finder_as.cpp)
-cs_add_executable(zeta_object_finder_ac src/zeta_object_finder_ac.cpp)
 cs_add_executable(zeta_coordinator src/zeta_coordinator.cpp)
 
 #the following is required, if desire to link a node in this package with a library created in this same package

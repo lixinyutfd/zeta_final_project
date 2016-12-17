@@ -1,5 +1,0 @@
-<launch>
-  <node name="from_torso_to_camera_link_static_tf" pkg="tf" type="static_transform_publisher" args="0.251 0.035 0.808 3.1 1.71 3.153 base camera_link 50"/>
-  <node pkg="zeta_object_finder" type="zeta_object_finder_as" name="zeta_object_finder_as"  output="screen"/>
-  
-</launch>

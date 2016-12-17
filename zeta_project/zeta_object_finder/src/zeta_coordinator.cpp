@@ -1,13 +1,11 @@
-// straddle_block_client: 
-// wsn, December, 2016
-//test client to position gripper at perceived grasp pose--then hover there
+// Zeta coordinator
+// December, 2016
 
 #include<ros/ros.h>
 #include <actionlib/client/simple_action_client.h>
 #include <actionlib/client/terminal_state.h>
 #include <coordinator/ManipTaskAction.h>
 #include <object_manipulation_properties/object_ID_codes.h>
-//#include <object_manipulation_properties/object_manipulation_properties.h>
 #include <object_finder/objectFinderAction.h>
 #include <object_grabber/object_grabberAction.h>
 #include <std_msgs/Int32.h>
@@ -46,11 +44,9 @@ void doneCb(const actionlib::SimpleClientGoalState& state,
             ROS_WARN("returned FAILED_PICKUP");
             g_object_grabber_return_code = result->object_grabber_return_code;
             g_object_pose = result->object_pose;
-            //g_des_flange_pose_stamped_wrt_torso = result->des_flange_pose_stamped_wrt_torso;
             break;
         case coordinator::ManipTaskResult::FAILED_DROPOFF:
             ROS_WARN("returned FAILED_DROPOFF");
-            //g_des_flange_pose_stamped_wrt_torso = result->des_flange_pose_stamped_wrt_torso;          
             break;
     }
 }
@@ -74,9 +70,7 @@ void activeCb() {
 }
 
 void subcb(const std_msgs::Int32& objectid){
-    ROS_INFO("objectid=%d", objectid.data);
     g_objectid = objectid.data;
-    ROS_INFO("gggggg_objectid=%d", g_objectid);
     g_into = true;
 }
 
@@ -90,8 +84,8 @@ int main(int argc, char** argv) {
     geometry_msgs::PoseStamped rdesired_pose;
     rdesired_pose.header.frame_id = "torso";
     rdesired_pose.pose.position.x = 0.5;
-    rdesired_pose.pose.position.y = -0.35; //-0.35;
-    rdesired_pose.pose.position.z = -0.20;
+    rdesired_pose.pose.position.y = -0.35;
+    rdesired_pose.pose.position.z = -0.28;
     rdesired_pose.pose.orientation.x = 0.0;
     rdesired_pose.pose.orientation.y = 0.1;
     rdesired_pose.pose.orientation.z = 0;
@@ -101,7 +95,7 @@ int main(int argc, char** argv) {
     geometry_msgs::PoseStamped ldesired_pose;
     ldesired_pose.header.frame_id = "torso";
     ldesired_pose.pose.position.x = 0.5;
-    ldesired_pose.pose.position.y = 0.35; //-0.35;
+    ldesired_pose.pose.position.y = 0.35;
     ldesired_pose.pose.position.z = -0.20;
     ldesired_pose.pose.orientation.x = 0.0;
     ldesired_pose.pose.orientation.y = 0.1;
@@ -198,10 +192,7 @@ int main(int argc, char** argv) {
       
 
         ros::Subscriber sub = nh.subscribe("objectid", 1, subcb);
-        ROS_INFO("r u spin?");
-        //bool incb = false;
-        while ((!g_into)&&(ros::ok())) {
-         // 
+        while ((!g_into)&&(ros::ok())) { 
             ros::spinOnce();
             ros::Duration(0.5).sleep();
             ROS_INFO("retrying...");
@@ -211,7 +202,6 @@ int main(int argc, char** argv) {
         ROS_INFO("sending a goal: move gripper to hard-coded destination");
             g_goal_done = false;
             goal.action_code = coordinator::ManipTaskGoal::CART_MOVE_TO_GRIPPER_POSE;
-            ROS_INFO("g_objectid = %d", g_objectid);
             if (g_objectid == 0){
                 goal.gripper_goal_frame = rdesired_pose;
             }
