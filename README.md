@@ -13,7 +13,7 @@ Darshan G. Parikh | dgp34
 
 ## How to Run
 
-_Make absolutely certain that the version of learning___ros repository being used is the repository clone located inside this package!_
+_Make absolutely certain that the version of learning_ros repository being used is the repository clone located inside this package!_
 
 0. In all terminals used, make sure to identify Merry's roscore.
 1. From the command line, run `roslaunch zeta_object_finder zeta.launch`. Wait for this to complete before moving to the next step.
