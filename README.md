@@ -1,6 +1,6 @@
 # zeta_final_project
 
-_This package addresses the final project: Make the Baxter robot Merry sort blocks._
+_This package addresses the final project in EECS 397/600: Make the Baxter robot Merry sort blocks._
 
 The project was created as part of Team Zeta.
 
